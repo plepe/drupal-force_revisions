@@ -1,0 +1,24 @@
+<?php
+
+/**
+ *
+ * @file
+ * Force Revisions
+ *
+ * creates a new revision of a node on every save event 
+ *
+ * inspired by:
+ * - https://drupal.stackexchange.com/a/215057
+ * - https://drupal.stackexchange.com/a/253555
+ *
+ */
+
+use Drupal\Core\Entity;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Entity\EntityInterface;
+
+function force_revisions_node_presave(EntityInterface $node) {
+   $node->setNewRevision(TRUE);
+   $node->setRevisionUserId(\Drupal::currentUser()->id());
+   $node->setRevisionCreationTime($_SERVER['REQUEST_TIME']);
+}

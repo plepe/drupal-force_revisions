@@ -1,0 +1,6 @@
+name: Force Revisions
+description: Forces nodes to create revisions on save (even for PATCHes from REST API)
+package: Custom
+
+type: module
+core_version_requirement: ^9 || ^10
