@@ -17,7 +17,9 @@ use Drupal\Core\Entity;
 use Drupal\Core\Entity\EntityInterface;
 
 function force_revisions_entity_presave(EntityInterface $entity) {
-  $entity->setNewRevision(TRUE);
-  $entity->setRevisionUserId(\Drupal::currentUser()->id());
-  $entity->setRevisionCreationTime($_SERVER['REQUEST_TIME']);
+  if (!in_array($entity->getEntityTypeId(), ['user', 'file']) && method_exists($entity, 'setNewRevision')) {
+    $entity->setNewRevision(TRUE);
+    $entity->setRevisionUserId(\Drupal::currentUser()->id());
+    $entity->setRevisionCreationTime($_SERVER['REQUEST_TIME']);
+  }
 }
