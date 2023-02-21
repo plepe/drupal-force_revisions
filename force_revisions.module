@@ -14,11 +14,10 @@
  */
 
 use Drupal\Core\Entity;
-use Drupal\node\Entity\Node;
 use Drupal\Core\Entity\EntityInterface;
 
-function force_revisions_node_presave(EntityInterface $node) {
-   $node->setNewRevision(TRUE);
-   $node->setRevisionUserId(\Drupal::currentUser()->id());
-   $node->setRevisionCreationTime($_SERVER['REQUEST_TIME']);
+function force_revisions_entity_presave(EntityInterface $entity) {
+  $entity->setNewRevision(TRUE);
+  $entity->setRevisionUserId(\Drupal::currentUser()->id());
+  $entity->setRevisionCreationTime($_SERVER['REQUEST_TIME']);
 }
